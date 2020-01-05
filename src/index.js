@@ -1,8 +1,24 @@
-import colorHash from 'colors.css';
+import colors from 'material-colors';
+const themes = Reflect.ownKeys(colors)
+  .filter(
+    themeName =>
+      !themeName.includes('Text') &&
+      !themeName.includes('Icons') &&
+      themeName !== 'white' &&
+      themeName !== 'black' &&
+      themeName !== 'grey'
+  )
+  .map(themeName => Object.values(colors[themeName]));
 
-const colors = Object.values(colorHash);
+let theme;
 
-const randomColor = () => colors[Math.floor(Math.random() * colors.length)];
+const setRandomTheme = () => {
+  theme = themes[Math.floor(Math.random() * themes.length)];
+};
+
+setRandomTheme();
+
+const randomColor = () => theme[Math.floor(Math.random() * theme.length)];
 
 document.body.style.margin = 0;
 document.body.style.padding = 0;
@@ -77,7 +93,14 @@ const fromBottom = animation(
 
 const animations = [fromLeft, fromTop, fromRight, fromBottom];
 
+let themeShapeCount = 1;
 const draw = () => {
+  if (themeShapeCount > 10 && Math.random() < 0.1) {
+    themeShapeCount = 1;
+    setRandomTheme();
+  } else {
+    themeShapeCount += 1;
+  }
   const randomAnimation =
     animations[Math.floor(Math.random() * animations.length)];
 

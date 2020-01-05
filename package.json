@@ -20,6 +20,6 @@
     "webpack-dev-server": "^3.10.1"
   },
   "dependencies": {
-    "colors.css": "^3.0.0"
+    "material-colors": "^1.2.6"
   }
 }
